@@ -46,7 +46,11 @@
             margin:2em 0 0 0;
             width: min(600px,80%);
         }
-
+        @keyframes pulsate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
         .cat-img {
             height:0;
             flex-grow:1;
@@ -58,12 +62,13 @@
             touch-action: manipulation;
             text-align: center;
             color:white;
-            -webkit-text-stroke-width: 3px;
+            -webkit-text-stroke-width: 10px;
             -webkit-text-stroke-color: black;
             font-weight:900;
             font-size:80px;
             font-family: 'Nunito', sans-serif;
             word-wrap: break-word;
+            animation: pulsate 2s infinite;
         }
         @media(min-width:1000px) {
             .title {
@@ -80,7 +85,7 @@
 </head>
 
 <body>
-<img class="title" src="imgs/popcat.svg" alt="POPCAT">
+<img class="title" src="imgs/popcat.svg" alt="POPCAT" >
 
 <div class="cat-img" id="p"></div>
 
