@@ -3,11 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-
-        <html>
-        <head>
-        <title>POPCAT CLASSIC</title>
+    <title>POPCAT CLASSIC</title>
     <meta name="author" content="Joshua O'Sullivan, Freddy Heppell, Edward Hails">
     <meta charset="UTF-8">
 
@@ -90,77 +86,30 @@
 <div class="cat-img" id="p"></div>
 
 <script>
-    /*Preloading alternate cat image*/
-    preload = new Image();
-    preload.src = "imgs/op.png";
+    let popcat_counter = 0;
 
-    /*Cat elem*/
-    cat = document.getElementById("p")
-
-    /*Pop mp3s*/
-    pops = [
-        "pops/pop1.mp3",
-        "pops/pop2.mp3",
-        "pops/pop3.mp3",
-        "pops/pop4.mp3",
-    ]
-    pop_i = 0
-
-    /*Cookie utils*/
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
+    let cat = document.getElementById("p");
+    let open_popcat = function () {
+        popcat_counter++;
+        cat.innerHTML = popcat_counter;
+        cat.id = "op";
+        let pop_sound = new Audio("pops/pop1.mp3");
+        pop_sound.load();
+        pop_sound.play();
     }
-    function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        var expires = "expires="+ d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    let close_popcat = function () {
+        cat.id ="p";
     }
+    // let p_func = function () {
+    //     setTimeout(close_popcat,100);s
+    // }
 
-    pop_count = getCookie("pop_count")
-    cat.innerHTML = pop_count > 0 ? pop_count : ""
+    close_popcat = () => setTimeout(()=>cat.id="p", 50);
 
-    op_func = function(){
-        /*Chance cat image to op.jpg via css*/
-        cat.id = "op"
-
-        /*Play pop noise*/
-        a = new Audio(pops[pop_i])
-        a.load()
-        a.play()
-
-        /*Increment index for next pop noise*/
-        pop_i = (pop_i+1)%pops.length
-
-        /*Increment pop count*/
-        pop_count++
-        cat.innerHTML = pop_count
-        setCookie("pop_count",pop_count,365)
-
-    }
-    p_func = () => setTimeout(() => cat.id = "p", 25)
-
-    document.addEventListener("pointerup", p_func)
-    document.addEventListener("keyup", p_func)
-    document.addEventListener("pointerdown", op_func)
-    document.addEventListener("keydown", op_func)
+    document.addEventListener("keydown",open_popcat);
+    document.addEventListener("pointerdown",open_popcat);
+    document.addEventListener("keyup",close_popcat);
+    document.addEventListener("pointerup", close_popcat);
 </script>
-</body>
-</html></title>
-</head>
-<body>
-
 </body>
 </html>
